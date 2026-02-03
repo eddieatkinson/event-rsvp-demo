@@ -95,4 +95,20 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    const db = getDB();
+    const events = await db
+      .collection("events")
+      .find()
+      .sort({ date: 1 })
+      .limit(10)
+      .toArray();
+    res.json(events);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Something went wrong" });
+  }
+});
+
 export default router;
