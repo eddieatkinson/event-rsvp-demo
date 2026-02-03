@@ -19,7 +19,7 @@ await connectDB();
 
 app.use("/events", eventsRouter);
 
-app.get("/health", (req, res) => {
+app.get("/", (req, res) => {
   res.json({ ok: true });
 });
 
