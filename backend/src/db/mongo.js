@@ -15,9 +15,11 @@ export async function connectDB() {
     await client.connect();
     db = client.db();
 
-    await db
-      .collection("events")
-      .createIndex({ createdAt: -1 }, { name: "createdAt_desc" });
+    await db.collection("events").createIndexes([
+      { key: { createdAt: -1 }, name: "createdAt_desc" },
+      { key: { date: 1 }, name: "date_asc" },
+    ]);
+
     console.log("MongoDB connected and index ensured");
   } catch (err) {
     console.error("Mongo connection error:", err);
